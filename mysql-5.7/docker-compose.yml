@@ -1,0 +1,19 @@
+services:
+  mysql57:
+    # mysql 5.7 不支援 ARM64 架構, 以類似的 mariadb 10.5 取代
+    image: mariadb:10.5
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: app
+    ports:
+      - "${MYSQL57_PORT}:3306"
+    volumes:
+      - ./data:/var/lib/mysql
+    labels:
+      - "traefik.enable=false"
+    networks:
+      - dev-net
+
+networks:
+  dev-net:
+    external: true
